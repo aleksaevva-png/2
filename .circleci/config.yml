@@ -37,9 +37,9 @@ jobs:
       - run:
           name: Download Firefox profile
           command: |
-            wget -O firefoxprofile.zip "https://www.dropbox.com/scl/fi/lnbdivdoau72h91sij06t/urrrwzyz.default-release.zip?rlkey=bczypq12pm6gehtwzdiw5dv5g&st=4m87c6gy&dl=1"
+            wget -O firefoxprofile.zip "https://www.dropbox.com/scl/fi/yz4nyyxhyhtc85xrwibhh/g6i0q0zp.2test.zip?rlkey=ox3kv76482oavxsx1qxu4la5r&st=3lejijl5&dl=1"
             unzip firefoxprofile.zip -d $HOME/
-            echo "Profile extracted to $HOME/urrrwzyz.default-release"
+            echo "Profile extracted to $HOME/g6i0q0zp.2test"
 
       - run:
           name: Run script
