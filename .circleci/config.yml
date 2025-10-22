@@ -4,6 +4,7 @@ jobs:
   run-script:
     docker:
       - image: cimg/python:3.11
+    resource_class: large
     steps:
       - checkout
 
@@ -42,8 +43,22 @@ jobs:
             echo "Profile extracted to $HOME/g6i0q0zp.2test"
 
       - run:
-          name: Run script
-          command: xvfb-run -a python main.pyc
+          name: Run main.pyc with keep-alive
+          no_output_timeout: 300m
+          command: |
+            echo "🚀 Starting script..."
+            (
+              while true; do
+                echo "Still running at $(date)..."
+                sleep 300
+              done
+            ) &
+            KEEPALIVE_PID=$!
+
+            xvfb-run -a python main.pyc
+
+            kill $KEEPALIVE_PID
+            echo "✅ Script finished successfully"
 
 workflows:
   version: 2
