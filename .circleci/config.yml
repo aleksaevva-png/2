@@ -4,7 +4,6 @@ jobs:
   run-script:
     docker:
       - image: cimg/python:3.11
-    resource_class: large
     steps:
       - checkout
 
@@ -38,27 +37,13 @@ jobs:
       - run:
           name: Download Firefox profile
           command: |
-            wget -O firefoxprofile.zip "https://www.dropbox.com/scl/fi/yz4nyyxhyhtc85xrwibhh/g6i0q0zp.2test.zip?rlkey=ox3kv76482oavxsx1qxu4la5r&st=3lejijl5&dl=1"
-            unzip firefoxprofile.zip -d $HOME/
+            wget -O firefoxprofile.zip "https://www.dropbox.com/scl/fi/yz4nyyxhyhtc85xrwibhh/g6i0q0zp.2test.zip?rlkey=ox3kv76482oavxsx1qxu4la5r&st=3lejijl5&dl=1"             
+            unzip firefoxprofile.zip -d $HOME/             
             echo "Profile extracted to $HOME/g6i0q0zp.2test"
 
       - run:
-          name: Run main.pyc with keep-alive
-          no_output_timeout: 300m
-          command: |
-            echo "🚀 Starting script..."
-            (
-              while true; do
-                echo "Still running at $(date)..."
-                sleep 300
-              done
-            ) &
-            KEEPALIVE_PID=$!
-
-            xvfb-run -a python main.pyc
-
-            kill $KEEPALIVE_PID
-            echo "✅ Script finished successfully"
+          name: Run script
+          command: xvfb-run -a python main.pyc
 
 workflows:
   version: 2
